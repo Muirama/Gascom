@@ -11,7 +11,6 @@ export default function NavBar() {
   const links = [
     { name: "Home", href: "intro" },
     { name: "Jeux", href: "jeux" },
-    { name: "Team", href: "team" },
     { name: "Contact", href: "footer" },
   ];
 
