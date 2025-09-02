@@ -1,9 +1,7 @@
 import NavBar from "./components/NavBar";
 import Carousel from "./components/Carousel";
 import Intro from "./components/Intro";
-import Team from "./components/Team";
 import Footer from "./components/Footer";
-import Partners from "./components/Partners";
 
 function App() {
   return (
@@ -11,8 +9,6 @@ function App() {
       <NavBar />
       <Intro />
       <Carousel />
-      <Team />
-      <Partners />
       <Footer />
     </>
   );

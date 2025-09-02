@@ -18,7 +18,7 @@ export default function NavBar() {
   return (
     <nav
       className="shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50 
-                 backdrop-blur-md bg-[#1A1A1A]/90 border-b border-red-700/30"
+                 backdrop-blur-md bg-[#0D0D0D]"
       role="navigation"
     >
       {/* Logo */}
