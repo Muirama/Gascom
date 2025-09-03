@@ -9,45 +9,45 @@ const items = [
   {
     id: 1,
     title: "League of Legends",
-    image: "https://cdn.cloudflare.steamstatic.com/steam/apps/20590/header.jpg",
+    image: "/images/lol.jpg",
   },
   {
     id: 2,
     title: "Counter-Strike 2",
-    image: "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg",
+    image: "/images/CS2.jpg",
   },
   {
     id: 3,
     title: "Valorant",
-    image: "https://cdn.cloudflare.steamstatic.com/steam/apps/750/header.jpg",
+    image: "/images/valorant.jpg",
   },
   {
     id: 4,
-    title: "FIFA 24",
-    image: "https://cdn.cloudflare.steamstatic.com/steam/apps/735/header.jpg",
+    title: "FIFA",
+    image: "/images/fifa.jpg",
   },
   {
     id: 5,
     title: "PUBG",
     image:
-      "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg",
+      "/images/pubg.jpg",
   },
   {
     id: 6,
     title: "Call of Duty",
     image:
-      "https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/header.jpg",
+      "/images/cod.jpg",
   },
   {
     id: 7,
     title: "Dota 2",
-    image: "https://cdn.cloudflare.steamstatic.com/steam/apps/570/header.jpg",
+    image: "/images/dota.jpg",
   },
   {
     id: 8,
     title: "Apex Legends",
     image:
-      "https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg",
+      "/images/apex.jpg",
   },
 ];
 
