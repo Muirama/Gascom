@@ -9,7 +9,7 @@ function App() {
     <>
       <Aurora
         colorStops={["#E50914", "#730b0b", "#1a1a1a"]}
-        amplitude={2}
+        amplitude={0.5}
         blend={1}
       />
       <NavBar />
