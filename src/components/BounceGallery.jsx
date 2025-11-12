@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 
 export default function BounceGallery({
@@ -7,23 +7,32 @@ export default function BounceGallery({
   containerWidth = 600,
   containerHeight = 300,
   transformStyles = [],
-  animationDelay = 0.8,
-  animationStagger = 0.06,
-  easeType = "elastic.out(1, 0.6)",
+  animationDelay = 0.3, // Réduit de 0.8 à 0.3
+  animationStagger = 0.04, // Réduit de 0.06 à 0.04
+  easeType = "power2.out", // Changé de elastic.out à power2.out (plus performant)
   enableHover = true,
 }) {
+  const hasAnimated = useRef(false);
+
   useEffect(() => {
-    gsap.fromTo(
-      ".bounce-card",
-      { scale: 0 },
-      {
-        scale: 1,
-        stagger: animationStagger,
-        ease: easeType,
-        delay: animationDelay,
-      }
-    );
-  }, [animationDelay, animationStagger, easeType]);
+    // Animation une seule fois au montage
+    if (!hasAnimated.current) {
+      hasAnimated.current = true;
+      gsap.fromTo(
+        ".bounce-card",
+        { scale: 0, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          stagger: animationStagger,
+          ease: easeType,
+          delay: animationDelay,
+          force3D: true, // Force GPU acceleration
+        }
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Dépendances vides pour n'animer qu'une fois
 
   // Fonction pour obtenir la transformation sans rotation
   const getNoRotationTransform = (transformStr) => {
@@ -122,6 +131,8 @@ export default function BounceGallery({
             boxShadow: "0 0 40px rgba(229, 9, 20, 0.5)",
             transform: transformStyles[idx] || "none",
             zIndex: 100 - idx,
+            willChange: "transform", // Optimisation GPU
+            backfaceVisibility: "hidden", // Évite le flickering
           }}
           onMouseEnter={() => pushSiblings(idx)}
           onMouseLeave={resetSiblings}
@@ -130,6 +141,8 @@ export default function BounceGallery({
             className="w-full h-full object-cover"
             src={src}
             alt={`card-${idx}`}
+            loading="lazy" // Lazy loading
+            decoding="async" // Décodage asynchrone
           />
         </div>
       ))}

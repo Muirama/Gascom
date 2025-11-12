@@ -13,6 +13,16 @@ body {
   cursor: url("/cursors/Zanpaktou.cur"), auto;
 }
 
+/* Optimisations GPU */
+.bounce-card,
+.aurora-container,
+[class*="motion-"] {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
 :root {
   background: transparent;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -1,10 +1,23 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaGamepad, FaTrophy, FaUsers } from "react-icons/fa";
 import BounceGallery from "./BounceGallery";
 
 export default function Intro() {
+  // Préchargement des images pour éviter le lag
+  useEffect(() => {
+    const imageUrls = [
+      "/images/ps5_white.png",
+      "/images/ps5_red.jpg",
+      "/images/ps5_color.png",
+    ];
+    
+    imageUrls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []);
   const services = [
     {
       icon: <FaGamepad size={40} className="text-[#E50914]" />,
@@ -98,9 +111,9 @@ export default function Intro() {
             containerWidth={500}
             containerHeight={300}
             transformStyles={transformStyles}
-            animationDelay={0.8}
-            animationStagger={0.08}
-            easeType="elastic.out(1, 0.6)"
+            animationDelay={0.3}
+            animationStagger={0.04}
+            easeType="power2.out"
             enableHover={true}
           />
         </motion.div>
