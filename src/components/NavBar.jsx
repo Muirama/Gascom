@@ -1,97 +1,130 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
-import GeS_Icon from "../assets/GeS_Icon.png";
-import { Link as ScrollLink } from "react-scroll";
+import { FaBars, FaTimes, FaHome, FaStore } from "react-icons/fa";
+import logo_GES_rouge from "/LOGO/Logo_GES_rouge.svg";
+import { Link, useLocation } from "react-router-dom";
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const links = [
-    { name: "Home", href: "intro" },
-    { name: "Jeux", href: "jeux" },
-    { name: "Contact", href: "footer" },
+  const pageLinks = [
+    { name: "Home", href: "/", icon: <FaHome /> },
+    { name: "Shop", href: "/shop", icon: <FaStore /> },
   ];
 
   return (
     <nav
-      className="shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-50 
-                 backdrop-blur-md bg-[#0D0D0D]"
+      className="shadow-md px-6 py-4 flex justify-between items-center sticky top-0 z-[60]
+                 backdrop-blur-md bg-[#0D0D0D]/90"
       role="navigation"
+      aria-label="Navigation principale"
     >
       {/* Logo */}
-      <a href="/" className="flex items-center space-x-2">
+      <Link
+        to="/"
+        className="flex items-center space-x-2"
+        aria-label="Retour à l'accueil"
+      >
         <img
-          src={GeS_Icon}
-          alt="GeS Icon"
+          src={logo_GES_rouge}
+          alt="Logo GasCom e-Sport"
           width="45"
-          className="rounded-full border-2 border-red-600 shadow-[0_0_12px_rgba(229,9,20,0.7)] animate-pulse"
+          height="45"
         />
         <span className="text-2xl font-extrabold tracking-wide text-white drop-shadow-lg">
           Gas<span className="text-[#E50914]">Com</span>
         </span>
-      </a>
+      </Link>
 
       {/* Desktop Links */}
       <ul className="hidden md:flex space-x-8 font-medium">
-        {links.map((link, i) => (
-          <li key={i}>
-            <ScrollLink
-              to={link.href}
-              smooth={true}
-              duration={500}
-              className="text-[#B3B3B3] hover:text-[#E50914] hover:drop-shadow-[0_0_8px_#E50914] cursor-pointer transition duration-300"
-            >
-              {link.name}
-            </ScrollLink>
-          </li>
-        ))}
+        {pageLinks.map((link, i) => {
+          const isActive = location.pathname === link.href;
+          return (
+            <li key={i}>
+              <Link
+                to={link.href}
+                aria-current={isActive ? "page" : undefined}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                  isActive
+                    ? "text-white bg-[#E50914] shadow-[0_0_15px_rgba(229,9,20,0.6)]"
+                    : "text-[#B3B3B3] hover:text-white hover:bg-[#E50914]/80 hover:shadow-[0_0_12px_rgba(229,9,20,0.4)]"
+                }`}
+              >
+                {link.icon}
+                {link.name}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
 
       {/* Mobile Menu Button */}
-      <div
-        className="md:hidden text-2xl text-white cursor-pointer"
+      <button
+        className="md:hidden text-2xl text-white"
         onClick={toggleMenu}
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        aria-expanded={menuOpen}
+        aria-controls="mobile-menu"
+        type="button"
       >
         {menuOpen ? <FaTimes /> : <FaBars />}
-      </div>
+      </button>
 
       {/* Mobile Drawer Menu */}
       <div
+        id="mobile-menu"
         className={`fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-[#0d0d0d]/95 
-                    shadow-2xl backdrop-blur-xl transform transition-transform duration-500 
+                    shadow-2xl backdrop-blur-xl transform transition-transform duration-500 z-50
                     ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu de navigation mobile"
       >
         <div className="flex justify-end p-6">
-          <FaTimes
-            className="text-2xl text-white cursor-pointer"
+          <button
             onClick={toggleMenu}
-          />
+            aria-label="Fermer le menu"
+            type="button"
+            className="text-2xl text-white"
+          >
+            <FaTimes />
+          </button>
         </div>
-        <ul className="flex flex-col items-center gap-8 mt-12 text-lg font-semibold">
-          {links.map((link, i) => (
-            <li key={i}>
-              <ScrollLink
-                to={link.href}
-                smooth={true}
-                duration={500}
-                onClick={toggleMenu}
-                className="text-[#B3B3B3] hover:text-[#E50914] hover:drop-shadow-[0_0_10px_#E50914] transition duration-300 cursor-pointer"
-              >
-                {link.name}
-              </ScrollLink>
-            </li>
-          ))}
-        </ul>
+        <nav aria-label="Menu mobile">
+          <ul className="flex flex-col items-center gap-8 mt-12 text-lg font-semibold">
+            {pageLinks.map((link, i) => {
+              const isActive = location.pathname === link.href;
+              return (
+                <li key={i}>
+                  <Link
+                    to={link.href}
+                    onClick={toggleMenu}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "text-white bg-[#E50914] shadow-[0_0_20px_rgba(229,9,20,0.7)]"
+                        : "text-[#B3B3B3] hover:text-white hover:bg-[#E50914]/80 hover:shadow-[0_0_15px_rgba(229,9,20,0.5)]"
+                    }`}
+                  >
+                    {link.icon}
+                    {link.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
 
       {/* Overlay */}
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm md:hidden z-40"
           onClick={toggleMenu}
+          aria-hidden="true"
         ></div>
       )}
     </nav>

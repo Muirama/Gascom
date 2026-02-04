@@ -111,8 +111,8 @@ void main() {
 export default function Aurora(props) {
   const {
     colorStops = ["#5227FF", "#7cff67", "#5227FF"],
-    amplitude = 1.0,
-    blend = 0.5,
+    amplitude = 0.3,
+    blend = 0.8,
   } = props;
   const propsRef = useRef(props);
   propsRef.current = props;
@@ -126,7 +126,7 @@ export default function Aurora(props) {
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true,
+      antialias: false, // Désactivé pour de meilleures performances
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -145,7 +145,14 @@ export default function Aurora(props) {
         program.uniforms.uResolution.value = [width, height];
       }
     }
-    window.addEventListener("resize", resize);
+
+    // Throttle resize pour de meilleures performances
+    let resizeTimeout;
+    const throttledResize = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(resize, 100);
+    };
+    window.addEventListener("resize", throttledResize);
 
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
@@ -173,11 +180,22 @@ export default function Aurora(props) {
     ctn.appendChild(gl.canvas);
 
     let animateId = 0;
+    let lastTime = 0;
+    const targetFPS = 60;
+    const frameInterval = 1000 / targetFPS;
+
     const update = (t) => {
       animateId = requestAnimationFrame(update);
+
+      // Limiter le framerate
+      const deltaTime = t - lastTime;
+      if (deltaTime < frameInterval) return;
+      lastTime = t - (deltaTime % frameInterval);
+
       const { time = t * 0.01, speed = 1.0 } = propsRef.current;
       program.uniforms.uTime.value = time * speed * 0.1;
-      program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
+      program.uniforms.uAmplitude.value =
+        propsRef.current.amplitude ?? amplitude;
       program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
       const stops = propsRef.current.colorStops ?? colorStops;
       program.uniforms.uColorStops.value = stops.map((hex) => {
@@ -192,14 +210,14 @@ export default function Aurora(props) {
 
     return () => {
       cancelAnimationFrame(animateId);
-      window.removeEventListener("resize", resize);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      window.removeEventListener("resize", throttledResize);
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);
       }
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [amplitude]);
+  }, [amplitude, blend, colorStops]);
 
   return <div ref={ctnDom} className="aurora-container" />;
 }

@@ -1,22 +1,25 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import Carousel from "./components/Carousel";
-import Intro from "./components/Intro";
 import Footer from "./components/Footer";
 import Aurora from "./animations/Aurora";
+import HomePage from "./pages/HomePage";
+import ShopPage from "./pages/ShopPage";
 
 function App() {
   return (
-    <>
+    <Router>
       <Aurora
         colorStops={["#E50914", "#730b0b", "#1a1a1a"]}
-        amplitude={0.3} // Réduit de 0.5 à 0.3 pour moins de calculs
-        blend={0.8} // Augmenté pour plus de fluidité
+        amplitude={0.5}
+        blend={0.7}
       />
       <NavBar />
-      <Intro />
-      <Carousel />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/shop" element={<ShopPage />} />
+      </Routes>
       <Footer />
-    </>
+    </Router>
   );
 }
 

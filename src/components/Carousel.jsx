@@ -25,11 +25,11 @@ export default function Carousel() {
   return (
     <section
       id="jeux"
-      className="relative bg-[#0D0D0D] py-20 overflow-hidden"
+      className="relative bg-transparent py-12 md:py-20 overflow-hidden z-10"
       onMouseEnter={() => swiperRef.current?.autoplay.stop()}
       onMouseLeave={() => swiperRef.current?.autoplay.start()}
     >
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10">
         {/* Texte à gauche */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
@@ -37,13 +37,13 @@ export default function Carousel() {
           transition={{ duration: 0.8 }}
           className="text-center md:text-left"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#E50914] drop-shadow-[0_0_15px_rgba(229,9,20,0.8)]">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#E50914] drop-shadow-[0_0_15px_rgba(229,9,20,0.8)]">
             Découvrez les jeux qui font vibrer la communauté
           </h2>
-          <p className="mt-6 text-gray-300 text-base md:text-lg leading-relaxed">
+          <p className="mt-4 md:mt-6 text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed">
             Plongez dans les univers les plus intenses du gaming moderne : des
             compétitions e-sport haletantes, des aventures immersives et des
-            batailles stratégiques. <br />
+            batailles stratégiques. <br className="hidden md:block" />
             Voici une sélection des titres incontournables qui rassemblent des
             millions de joueurs à travers le monde.
           </p>
@@ -52,11 +52,11 @@ export default function Carousel() {
         {/* Carrousel à droite */}
         <Swiper
           modules={[Autoplay, Pagination]}
-          spaceBetween={25}
+          spaceBetween={20}
           slidesPerView={1}
           breakpoints={{
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 2 },
+            640: { slidesPerView: 1.5, spaceBetween: 20 },
+            1024: { slidesPerView: 2, spaceBetween: 25 },
           }}
           loop={true}
           autoplay={{ delay: 2500, disableOnInteraction: false }}
@@ -74,14 +74,14 @@ export default function Carousel() {
                   tiltMaxAngleX={10}
                   tiltMaxAngleY={10}
                   perspective={800}
-                  scale={1.05}
+                  scale={1.03}
                   transitionSpeed={1000}
                   glareEnable={true}
                   glareMaxOpacity={0.3}
                   className="rounded-xl"
                 >
                   <div
-                    className="relative group w-full h-[240px] md:h-[280px] rounded-2xl overflow-hidden 
+                    className="relative group w-full h-[200px] sm:h-[240px] md:h-[280px] rounded-2xl overflow-hidden 
                                shadow-[0_0_20px_rgba(229,9,20,0.2)] 
                                border border-[#E50914]/20 backdrop-blur-sm
                                transform transition duration-700 
@@ -100,7 +100,7 @@ export default function Carousel() {
                       className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent 
                                  opacity-90 group-hover:opacity-100 transition duration-700 flex flex-col justify-end"
                     >
-                      <h3 className="text-lg md:text-xl font-bold text-center text-white mb-4 group-hover:text-[#E50914] drop-shadow-[0_0_10px_rgba(229,9,20,0.7)] transition">
+                      <h3 className="text-base sm:text-lg md:text-xl font-bold text-center text-white mb-3 md:mb-4 px-2 group-hover:text-[#E50914] drop-shadow-[0_0_10px_rgba(229,9,20,0.7)] transition">
                         {item.title}
                       </h3>
                     </div>
