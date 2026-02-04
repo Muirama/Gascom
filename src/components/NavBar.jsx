@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes, FaHome, FaStore } from "react-icons/fa";
+import { FaBars, FaTimes, FaHome, FaStore, FaUsers, FaNewspaper, FaCalendarAlt, FaSignInAlt } from "react-icons/fa";
 import logo_GES_rouge from "/LOGO/Logo_GES_rouge.svg";
 import { Link, useLocation } from "react-router-dom";
 
@@ -12,6 +12,9 @@ export default function NavBar() {
   const pageLinks = [
     { name: "Home", href: "/", icon: <FaHome /> },
     { name: "Shop", href: "/shop", icon: <FaStore /> },
+    { name: "Team", href: "/team", icon: <FaUsers /> },
+    { name: "News", href: "/news", icon: <FaNewspaper /> },
+    { name: "Events", href: "/events", icon: <FaCalendarAlt /> },
   ];
 
   return (
@@ -39,27 +42,38 @@ export default function NavBar() {
       </Link>
 
       {/* Desktop Links */}
-      <ul className="hidden md:flex space-x-8 font-medium">
-        {pageLinks.map((link, i) => {
-          const isActive = location.pathname === link.href;
-          return (
-            <li key={i}>
-              <Link
-                to={link.href}
-                aria-current={isActive ? "page" : undefined}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
-                  isActive
-                    ? "text-white bg-[#E50914] shadow-[0_0_15px_rgba(229,9,20,0.6)]"
-                    : "text-[#B3B3B3] hover:text-white hover:bg-[#E50914]/80 hover:shadow-[0_0_12px_rgba(229,9,20,0.4)]"
-                }`}
-              >
-                {link.icon}
-                {link.name}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <div className="hidden md:flex items-center gap-8">
+        <ul className="flex space-x-8 font-medium">
+          {pageLinks.map((link, i) => {
+            const isActive = location.pathname === link.href;
+            return (
+              <li key={i}>
+                <Link
+                  to={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 ${
+                    isActive
+                      ? "text-white bg-[#E50914] shadow-[0_0_15px_rgba(229,9,20,0.6)]"
+                      : "text-[#B3B3B3] hover:text-white hover:bg-[#E50914]/80 hover:shadow-[0_0_12px_rgba(229,9,20,0.4)]"
+                  }`}
+                >
+                  {link.icon}
+                  {link.name}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        
+        {/* Login Button Desktop */}
+        <Link
+          to="/login"
+          className="flex items-center gap-2 px-6 py-2 bg-[#E50914] hover:bg-[#FF1E56] text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(229,9,20,0.6)]"
+        >
+          <FaSignInAlt />
+          Login
+        </Link>
+      </div>
 
       {/* Mobile Menu Button */}
       <button
@@ -94,16 +108,16 @@ export default function NavBar() {
           </button>
         </div>
         <nav aria-label="Menu mobile">
-          <ul className="flex flex-col items-center gap-8 mt-12 text-lg font-semibold">
+          <ul className="flex flex-col items-center gap-6 mt-8 text-lg font-semibold px-6">
             {pageLinks.map((link, i) => {
               const isActive = location.pathname === link.href;
               return (
-                <li key={i}>
+                <li key={i} className="w-full">
                   <Link
                     to={link.href}
                     onClick={toggleMenu}
                     aria-current={isActive ? "page" : undefined}
-                    className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all duration-300 ${
+                    className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all duration-300 w-full ${
                       isActive
                         ? "text-white bg-[#E50914] shadow-[0_0_20px_rgba(229,9,20,0.7)]"
                         : "text-[#B3B3B3] hover:text-white hover:bg-[#E50914]/80 hover:shadow-[0_0_15px_rgba(229,9,20,0.5)]"
@@ -115,6 +129,18 @@ export default function NavBar() {
                 </li>
               );
             })}
+            
+            {/* Login Button Mobile */}
+            <li className="w-full mt-4">
+              <Link
+                to="/login"
+                onClick={toggleMenu}
+                className="flex items-center justify-center gap-3 px-6 py-3 bg-[#E50914] hover:bg-[#FF1E56] text-white font-bold rounded-lg transition-all duration-300 shadow-[0_0_20px_rgba(229,9,20,0.6)] w-full"
+              >
+                <FaSignInAlt />
+                Login
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

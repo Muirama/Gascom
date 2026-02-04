@@ -4,6 +4,11 @@ import Footer from "./components/Footer";
 import Aurora from "./animations/Aurora";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
+import TeamPage from "./pages/TeamPage";
+import NewsPage from "./pages/NewsPage";
+import EventPage from "./pages/EventPage";
+import LoginPage from "./pages/LoginPage";
+import SignPage from "./pages/SignPage";
 
 function App() {
   return (
@@ -17,6 +22,11 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/team" element={<TeamPage />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/events" element={<EventPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign" element={<SignPage />} />
       </Routes>
       <Footer />
     </Router>
