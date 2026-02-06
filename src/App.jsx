@@ -3,10 +3,19 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Aurora from "./animations/Aurora";
 import HomePage from "./pages/HomePage";
-import ShopPage from "./pages/ShopPage";
-import TeamPage from "./pages/TeamPage";
-import NewsPage from "./pages/NewsPage";
-import EventPage from "./pages/EventPage";
+
+import ShopPage from "./pages/shop/ShopPage";
+import ShopDetailPage from "./pages/shop/ShopDetailPage";
+
+import TeamPage from "./pages/team/TeamPage";
+import TeamDetailPage from "./pages/team/TeamDetailPage";
+
+import NewsPage from "./pages/news/NewsPage";
+import NewsDetailPage from "./pages/news/NewsDetailPage";
+
+import EventPage from "./pages/events/EventPage";
+import EventDetailPage from "./pages/events/EventDetailPage";
+
 import LoginPage from "./pages/LoginPage";
 import SignPage from "./pages/SignPage";
 
@@ -22,9 +31,13 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop/:id" element={<ShopDetailPage />} />
         <Route path="/team" element={<TeamPage />} />
+        <Route path="/team/:id" element={<TeamDetailPage />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:id" element={<NewsDetailPage />} />
         <Route path="/events" element={<EventPage />} />
+        <Route path="/events/:id" element={<EventDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign" element={<SignPage />} />
       </Routes>

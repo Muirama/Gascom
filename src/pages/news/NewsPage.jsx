@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   FaSearch,
   FaSortAmountDown,
   FaHeart,
   FaCalendarAlt,
   FaUser,
-  FaTags,
   FaNewspaper,
+  FaEye,
 } from "react-icons/fa";
-import { news, newsCategories, newsSortOptions } from "../data/NewsData";
+import { news, newsCategories, newsSortOptions } from "../../data/NewsData";
 
 export default function NewsPage() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Toutes");
   const [sortBy, setSortBy] = useState("date-desc");
-  const [selectedNews, setSelectedNews] = useState(null);
   const [likedNews, setLikedNews] = useState(new Set());
 
   // Filtrage et tri des actualités
@@ -100,8 +101,7 @@ export default function NewsPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 md:mb-12 relative z-10"
         >
-          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4 flex items-center justify-center gap-3">
-            <FaNewspaper className="text-[#E50914]" />
+          <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4">
             Actualités <span className="text-[#E50914]">Gaming</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg">
@@ -213,7 +213,10 @@ export default function NewsPage() {
                   className="bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#E50914]/20 hover:border-[#E50914] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all duration-300"
                 >
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => setSelectedNews(item)}>
+                  <div
+                    className="relative h-48 overflow-hidden cursor-pointer"
+                    onClick={() => navigate(`/news/${item.id}`)}
+                  >
                     <img
                       src={item.image}
                       alt={item.title}
@@ -222,9 +225,7 @@ export default function NewsPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                     <span
-                      className={`absolute top-3 right-3 ${getCategoryColor(
-                        item.category
-                      )} text-white text-xs px-3 py-1 rounded-full font-semibold`}
+                      className={`absolute top-3 right-3 ${getCategoryColor(item.category)} text-white text-xs px-3 py-1 rounded-full font-semibold`}
                     >
                       {item.category}
                     </span>
@@ -235,7 +236,7 @@ export default function NewsPage() {
                     {/* Titre */}
                     <h3
                       className="text-lg md:text-xl font-bold text-white mb-3 line-clamp-2 cursor-pointer hover:text-[#E50914] transition"
-                      onClick={() => setSelectedNews(item)}
+                      onClick={() => navigate(`/news/${item.id}`)}
                     >
                       {item.title}
                     </h3>
@@ -269,17 +270,21 @@ export default function NewsPage() {
                         }`}
                         aria-label={`J'aime ${item.title}`}
                       >
-                        <FaHeart className={likedNews.has(item.id) ? "fill-current" : ""} />
+                        <FaHeart
+                          className={
+                            likedNews.has(item.id) ? "fill-current" : ""
+                          }
+                        />
                         <span className="text-sm font-semibold">
                           {item.likes + (likedNews.has(item.id) ? 1 : 0)}
                         </span>
                       </button>
                       <button
                         type="button"
-                        onClick={() => setSelectedNews(item)}
-                        className="text-sm font-semibold text-[#E50914] hover:text-[#FF1E56] transition"
+                        onClick={() => navigate(`/news/${item.id}`)}
+                        className="text-sm font-semibold text-[#E50914] hover:text-[#FF1E56] transition flex items-center gap-2"
                       >
-                        Lire plus →
+                        <FaEye /> Lire plus
                       </button>
                     </div>
                   </div>
@@ -294,7 +299,7 @@ export default function NewsPage() {
               exit={{ opacity: 0, y: -20 }}
               className="text-center mt-12 md:mt-16 py-12 relative z-10"
             >
-              <div className="text-gray-500 text-5xl md:text-6xl mb-4">📰</div>
+              <div className="text-gray-500 text-5xl md:text-6xl mb-4">🔍</div>
               <p className="text-gray-500 text-lg md:text-xl mb-6">
                 Aucune actualité trouvée pour votre recherche.
               </p>
@@ -310,103 +315,6 @@ export default function NewsPage() {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Modal article complet */}
-      <AnimatePresence>
-        {selectedNews && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] flex items-center justify-center p-4 overflow-y-auto"
-            onClick={() => setSelectedNews(null)}
-          >
-            <motion.article
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-[#1A1A1A] rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto border border-[#E50914]/30 relative my-8"
-            >
-              {/* Bouton fermer */}
-              <button
-                onClick={() => setSelectedNews(null)}
-                className="absolute top-4 right-4 text-white hover:text-[#E50914] text-2xl z-10 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition"
-                aria-label="Fermer"
-              >
-                ✕
-              </button>
-
-              {/* Image header */}
-              <div className="relative h-80 overflow-hidden rounded-t-2xl">
-                <img
-                  src={selectedNews.image}
-                  alt={selectedNews.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent" />
-                <span
-                  className={`absolute top-4 right-4 ${getCategoryColor(
-                    selectedNews.category
-                  )} text-white text-sm px-4 py-2 rounded-full font-semibold`}
-                >
-                  {selectedNews.category}
-                </span>
-              </div>
-
-              <div className="p-6 md:p-8">
-                {/* Titre */}
-                <h2 className="text-2xl md:text-4xl font-extrabold text-white mb-4">
-                  {selectedNews.title}
-                </h2>
-
-                {/* Meta */}
-                <div className="flex flex-wrap items-center gap-4 mb-6 text-sm text-gray-400">
-                  <div className="flex items-center gap-2">
-                    <FaCalendarAlt className="text-[#E50914]" />
-                    <span>{formatDate(selectedNews.date)}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaUser className="text-[#E50914]" />
-                    <span>{selectedNews.author}</span>
-                  </div>
-                  <button
-                    onClick={() => handleLike(selectedNews.id)}
-                    className={`flex items-center gap-2 ${
-                      likedNews.has(selectedNews.id)
-                        ? "text-[#E50914]"
-                        : "hover:text-[#E50914]"
-                    } transition`}
-                  >
-                    <FaHeart className={likedNews.has(selectedNews.id) ? "fill-current" : ""} />
-                    <span>{selectedNews.likes + (likedNews.has(selectedNews.id) ? 1 : 0)} likes</span>
-                  </button>
-                </div>
-
-                {/* Tags */}
-                <div className="flex items-center gap-2 mb-6 flex-wrap">
-                  <FaTags className="text-[#E50914]" />
-                  {selectedNews.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-[#0D0D0D] text-gray-300 text-xs px-3 py-1 rounded-full"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Contenu */}
-                <div className="prose prose-invert max-w-none">
-                  <p className="text-gray-300 text-base md:text-lg leading-relaxed whitespace-pre-line">
-                    {selectedNews.content}
-                  </p>
-                </div>
-              </div>
-            </motion.article>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }

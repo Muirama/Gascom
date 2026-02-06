@@ -1,18 +1,20 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   FaSearch,
   FaSortAmountDown,
   FaTrophy,
   FaUsers,
   FaGamepad,
-  FaMedal,
   FaCalendarAlt,
+  FaEye,
 } from "react-icons/fa";
-import { teams, gameCategories, teamSortOptions } from "../data/TeamData";
+import { teams, gameCategories, teamSortOptions } from "../../data/TeamData";
 
 export default function TeamPage() {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGame, setSelectedGame] = useState("Tous");
   const [sortBy, setSortBy] = useState("default");
@@ -184,7 +186,7 @@ export default function TeamPage() {
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ delay: index * 0.05, duration: 0.3 }}
                   whileHover={{ scale: 1.02, y: -5 }}
-                  onClick={() => setSelectedTeam(team)}
+                  onClick={() => navigate(`/team/${team.id}`)}
                   className="bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#E50914]/20 hover:border-[#E50914] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all duration-300 cursor-pointer"
                 >
                   {/* Image de l'équipe */}
@@ -254,11 +256,11 @@ export default function TeamPage() {
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedTeam(team);
+                        navigate(`/team/${team.id}`);
                       }}
-                      className="w-full mt-4 bg-[#E50914] hover:bg-[#FF1E56] text-white font-semibold py-2 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(229,9,20,0.6)] active:scale-95"
+                      className="w-full mt-4 bg-[#E50914] hover:bg-[#FF1E56] text-white font-semibold py-2 rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(229,9,20,0.6)] active:scale-95 flex items-center justify-center gap-2"
                     >
-                      Voir les détails
+                      <FaEye /> Voir les détails
                     </button>
                   </div>
                 </motion.div>
@@ -288,124 +290,6 @@ export default function TeamPage() {
           )}
         </AnimatePresence>
       </div>
-
-      {/* Modal détails équipe */}
-      <AnimatePresence>
-        {selectedTeam && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[70] flex items-center justify-center p-4"
-            onClick={() => setSelectedTeam(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-[#1A1A1A] rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto border border-[#E50914]/30 relative"
-            >
-              {/* Bouton fermer */}
-              <button
-                onClick={() => setSelectedTeam(null)}
-                className="absolute top-4 right-4 text-white hover:text-[#E50914] text-2xl z-10 bg-black/50 rounded-full w-10 h-10 flex items-center justify-center transition"
-                aria-label="Fermer"
-              >
-                ✕
-              </button>
-
-              {/* Image header */}
-              <div className="relative h-64 overflow-hidden rounded-t-2xl">
-                <img
-                  src={selectedTeam.image}
-                  alt={selectedTeam.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-2">
-                    {selectedTeam.name}
-                  </h2>
-                  <p className="text-[#E50914] text-lg font-semibold flex items-center gap-2">
-                    <FaGamepad /> {selectedTeam.game}
-                  </p>
-                </div>
-              </div>
-
-              <div className="p-6 md:p-8">
-                {/* Stats détaillées */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <div className="bg-[#0D0D0D] p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-[#E50914]">
-                      {selectedTeam.wins}
-                    </div>
-                    <div className="text-sm text-gray-500">Victoires</div>
-                  </div>
-                  <div className="bg-[#0D0D0D] p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-gray-400">
-                      {selectedTeam.losses}
-                    </div>
-                    <div className="text-sm text-gray-500">Défaites</div>
-                  </div>
-                  <div className="bg-[#0D0D0D] p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-green-500">
-                      {getWinRate(selectedTeam.wins, selectedTeam.losses)}%
-                    </div>
-                    <div className="text-sm text-gray-500">Winrate</div>
-                  </div>
-                  <div className="bg-[#0D0D0D] p-4 rounded-lg text-center">
-                    <div className="text-3xl font-bold text-[#E50914]">
-                      {selectedTeam.rank}
-                    </div>
-                    <div className="text-sm text-gray-500">Rang</div>
-                  </div>
-                </div>
-
-                {/* Membres */}
-                <div className="mb-6">
-                  <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                    <FaUsers className="text-[#E50914]" /> Membres de l'équipe
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    {selectedTeam.members.map((member, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-[#0D0D0D] px-4 py-3 rounded-lg text-center text-white font-semibold hover:bg-[#E50914]/20 transition"
-                      >
-                        {member}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Récompenses */}
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-2">
-                    <FaTrophy className="text-[#E50914]" /> Récompenses
-                  </h3>
-                  <div className="space-y-2">
-                    {selectedTeam.achievements.map((achievement, idx) => (
-                      <div
-                        key={idx}
-                        className="bg-[#0D0D0D] px-4 py-3 rounded-lg text-gray-300 flex items-center gap-3 hover:bg-[#E50914]/10 transition"
-                      >
-                        <FaMedal className="text-[#E50914] text-xl" />
-                        {achievement}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Info fondation */}
-                <div className="mt-6 text-center text-gray-500 text-sm">
-                  Équipe fondée en {selectedTeam.founded}
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   );
 }
