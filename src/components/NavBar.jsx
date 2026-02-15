@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { FaBars, FaTimes, FaHome, FaStore, FaUsers, FaNewspaper, FaCalendarAlt, FaSignInAlt } from "react-icons/fa";
+import {
+  FaBars,
+  FaTimes,
+  FaHome,
+  FaStore,
+  FaUsers,
+  FaNewspaper,
+  FaCalendarAlt,
+  FaSignInAlt,
+} from "react-icons/fa";
 import logo_GES_rouge from "/LOGO/Logo_GES_rouge.svg";
 import { Link, useLocation } from "react-router-dom";
 
@@ -64,7 +73,7 @@ export default function NavBar() {
             );
           })}
         </ul>
-        
+
         {/* Login Button Desktop */}
         <Link
           to="/login"
@@ -90,8 +99,8 @@ export default function NavBar() {
       {/* Mobile Drawer Menu */}
       <div
         id="mobile-menu"
-        className={`fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-[#0d0d0d]/95 
-                    shadow-2xl backdrop-blur-xl transform transition-transform duration-500 z-50
+        className={`fixed top-0 right-0 h-full w-3/4 sm:w-1/2 bg-gray-800
+                    shadow-2xl transform transition-transform duration-500 z-50
                     ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
         role="dialog"
         aria-modal="true"
@@ -108,7 +117,7 @@ export default function NavBar() {
           </button>
         </div>
         <nav aria-label="Menu mobile">
-          <ul className="flex flex-col items-center gap-6 mt-8 text-lg font-semibold px-6">
+          <ul className="flex flex-col items-center gap-6 mt-8 text-lg font-semibold px-6 bg-gray-800">
             {pageLinks.map((link, i) => {
               const isActive = location.pathname === link.href;
               return (
@@ -129,7 +138,7 @@ export default function NavBar() {
                 </li>
               );
             })}
-            
+
             {/* Login Button Mobile */}
             <li className="w-full mt-4">
               <Link

@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaGamepad, FaTrophy, FaUsers } from "react-icons/fa";
 
 export default function Intro() {
-  
   const services = [
     {
       icon: <FaGamepad size={40} className="text-[#E50914]" />,
@@ -44,7 +43,7 @@ export default function Intro() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
             Bienvenue chez{" "}
             <span className="text-[#E50914] drop-shadow-[0_0_25px_rgba(229,9,20,0.8)]">
-              GasCom e-Sport
+              GasCom
             </span>
           </h1>
           <p className="mt-4 md:mt-6 text-gray-300 text-base md:text-lg lg:text-xl max-w-lg mx-auto md:mx-0 leading-relaxed">
@@ -82,7 +81,9 @@ export default function Intro() {
               <p className="text-gray-400 text-sm md:text-base px-4">
                 Votre plateforme gaming
                 <br />
-                <span className="text-xs md:text-sm text-gray-500">à Madagascar</span>
+                <span className="text-xs md:text-sm text-gray-500">
+                  à Madagascar
+                </span>
               </p>
             </div>
           </div>
@@ -102,8 +103,12 @@ export default function Intro() {
             style={{ cursor: "pointer" }}
           >
             <div className="mb-4 md:mb-5 flex justify-center">{s.icon}</div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-2 md:mb-3">{s.title}</h3>
-            <p className="text-gray-400 text-sm md:text-base leading-relaxed">{s.desc}</p>
+            <h3 className="text-xl md:text-2xl font-semibold mb-2 md:mb-3">
+              {s.title}
+            </h3>
+            <p className="text-gray-400 text-sm md:text-base leading-relaxed">
+              {s.desc}
+            </p>
           </motion.div>
         ))}
       </div>
