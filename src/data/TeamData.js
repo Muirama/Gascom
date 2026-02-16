@@ -1,7 +1,7 @@
 export const teams = [
   {
     id: 1,
-    name: "GasCom Legends",
+    name: "Gascom Legends",
     game: "League of Legends",
     image: "/images/lol.jpg",
     members: ["Player1", "Player2", "Player3", "Player4", "Player5"],
@@ -17,7 +17,7 @@ export const teams = [
   },
   {
     id: 2,
-    name: "GasCom Strike",
+    name: "Gascom Strike",
     game: "Counter-Strike 2",
     image: "/images/CS2.jpg",
     members: ["AWPer1", "Entry2", "IGL3", "Support4", "Rifler5"],
@@ -33,7 +33,7 @@ export const teams = [
   },
   {
     id: 3,
-    name: "GasCom Valiant",
+    name: "Gascom Valiant",
     game: "Valorant",
     image: "/images/valorant.jpg",
     members: ["Duelist1", "Controller2", "Sentinel3", "Initiator4", "Flex5"],
@@ -49,7 +49,7 @@ export const teams = [
   },
   {
     id: 4,
-    name: "GasCom FC",
+    name: "Gascom FC",
     game: "FIFA 24",
     image: "/images/fifa.jpg",
     members: ["Pro1", "Pro2", "Pro3"],
@@ -65,7 +65,7 @@ export const teams = [
   },
   {
     id: 5,
-    name: "GasCom Mobile",
+    name: "Gascom Mobile",
     game: "PUBG Mobile",
     image: "/images/pubg.jpg",
     members: ["Fragger1", "Support2", "IGL3", "Sniper4"],
@@ -81,7 +81,7 @@ export const teams = [
   },
   {
     id: 6,
-    name: "GasCom Warzone",
+    name: "Gascom Warzone",
     game: "Call of Duty",
     image: "/images/cod.jpg",
     members: ["Slayer1", "Obj2", "Anchor3", "Flex4"],
@@ -97,7 +97,7 @@ export const teams = [
   },
   {
     id: 7,
-    name: "GasCom Dota",
+    name: "Gascom Dota",
     game: "Dota 2",
     image: "/images/dota.jpg",
     members: ["Carry1", "Mid2", "Offlane3", "Support4", "Support5"],
@@ -113,7 +113,7 @@ export const teams = [
   },
   {
     id: 8,
-    name: "GasCom Apex",
+    name: "Gascom Apex",
     game: "Apex Legends",
     image: "/images/apex.jpg",
     members: ["IGL1", "Fragger2", "Support3"],
