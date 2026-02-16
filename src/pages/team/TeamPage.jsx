@@ -78,10 +78,10 @@ export default function TeamPage() {
           className="text-center mb-8 md:mb-12 relative z-10"
         >
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4">
-            Nos Équipes <span className="text-[#E50914]">e-Sport</span>
+            Nos Équipes <span className="text-[#E50914]">esports</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg">
-            Découvrez les équipes professionnelles de GasCom e-Sport
+            Découvrez les équipes professionnelles de Gascom esport
           </p>
           <p className="text-gray-500 mt-2 text-sm md:text-base">
             {filteredAndSortedTeams.length} équipe(s) active(s)

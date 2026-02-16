@@ -84,14 +84,19 @@ export default function LoginPage() {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-[#E50914] rounded-full mb-4">
-              <FaGamepad className="text-3xl text-white" />
+              {/* <FaGamepad className="text-3xl text-white" /> */}
+              <img
+                src="/LOGO/Logo_GES_rouge.svg"
+                alt="Gascom Logo"
+                className="absolute w-10 h-10 object-contain"
+              />
             </div>
             <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-2">
               Connexion
             </h1>
             <p className="text-gray-400">
               Accédez à votre compte{" "}
-              <span className="text-[#E50914]">GasCom</span>
+              <span className="text-[#E50914]">Gascom</span>
             </p>
           </div>
 

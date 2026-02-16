@@ -13,7 +13,12 @@ import {
   FaCheckCircle,
   FaEye,
 } from "react-icons/fa";
-import { events, eventCategories, eventGames, eventSortOptions } from "../../data/EventData";
+import {
+  events,
+  eventCategories,
+  eventGames,
+  eventSortOptions,
+} from "../../data/EventData";
 
 export default function EventPage() {
   const navigate = useNavigate();
@@ -91,7 +96,7 @@ export default function EventPage() {
   const getStatusColor = (status) => {
     const colors = {
       "Inscriptions ouvertes": "bg-green-600",
-      "Complet": "bg-red-600",
+      Complet: "bg-red-600",
       "Dernières places": "bg-orange-600",
       "Billets disponibles": "bg-blue-600",
       "Places disponibles": "bg-green-600",
@@ -121,7 +126,7 @@ export default function EventPage() {
         >
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4 flex items-center justify-center gap-3">
             <FaCalendarAlt className="text-[#E50914]" />
-            Événements <span className="text-[#E50914]">e-Sport</span>
+            Événements <span className="text-[#E50914]">esport</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg">
             Découvrez tous les tournois, événements et conventions gaming
@@ -173,8 +178,18 @@ export default function EventPage() {
                 ))}
               </select>
               <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none z-10">
-                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <svg
+                  className="w-4 h-4 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 9l-7 7-7-7"
+                  />
                 </svg>
               </div>
             </div>
@@ -240,7 +255,10 @@ export default function EventPage() {
                   className="bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#E50914]/20 hover:border-[#E50914] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all duration-300"
                 >
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => navigate(`/events/${event.id}`)}>
+                  <div
+                    className="relative h-48 overflow-hidden cursor-pointer"
+                    onClick={() => navigate(`/events/${event.id}`)}
+                  >
                     <img
                       src={event.image}
                       alt={event.title}
@@ -248,10 +266,14 @@ export default function EventPage() {
                       className="w-full h-full object-cover hover:scale-110 transition duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent" />
-                    <span className={`absolute top-3 left-3 ${getCategoryColor(event.category)} text-white text-xs px-3 py-1 rounded-full font-semibold`}>
+                    <span
+                      className={`absolute top-3 left-3 ${getCategoryColor(event.category)} text-white text-xs px-3 py-1 rounded-full font-semibold`}
+                    >
                       {event.category}
                     </span>
-                    <span className={`absolute top-3 right-3 ${getStatusColor(event.status)} text-white text-xs px-3 py-1 rounded-full font-semibold`}>
+                    <span
+                      className={`absolute top-3 right-3 ${getStatusColor(event.status)} text-white text-xs px-3 py-1 rounded-full font-semibold`}
+                    >
                       {event.status}
                     </span>
                     {registeredEvents.has(event.id) && (
@@ -316,15 +338,16 @@ export default function EventPage() {
                       >
                         <FaEye /> Détails
                       </button>
-                      {!registeredEvents.has(event.id) && event.status !== "Complet" && (
-                        <button
-                          type="button"
-                          onClick={() => handleRegister(event.id)}
-                          className="flex-1 bg-[#E50914] hover:bg-[#FF1E56] text-white font-semibold py-2 rounded-lg transition-all hover:shadow-[0_0_15px_rgba(229,9,20,0.6)] active:scale-95"
-                        >
-                          S'inscrire
-                        </button>
-                      )}
+                      {!registeredEvents.has(event.id) &&
+                        event.status !== "Complet" && (
+                          <button
+                            type="button"
+                            onClick={() => handleRegister(event.id)}
+                            className="flex-1 bg-[#E50914] hover:bg-[#FF1E56] text-white font-semibold py-2 rounded-lg transition-all hover:shadow-[0_0_15px_rgba(229,9,20,0.6)] active:scale-95"
+                          >
+                            S'inscrire
+                          </button>
+                        )}
                     </div>
                   </div>
                 </motion.article>

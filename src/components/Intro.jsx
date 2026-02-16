@@ -12,7 +12,7 @@ export default function Intro() {
     },
     {
       icon: <FaTrophy size={40} className="text-[#E50914]" />,
-      title: "Tournois e-Sport",
+      title: "Tournois esports",
       desc: "Participez à des compétitions intenses avec des récompenses prestigieuses.",
     },
     {
@@ -43,7 +43,7 @@ export default function Intro() {
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
             Bienvenue chez{" "}
             <span className="text-[#E50914] drop-shadow-[0_0_25px_rgba(229,9,20,0.8)]">
-              GasCom
+              Gascom
             </span>
           </h1>
           <p className="mt-4 md:mt-6 text-gray-300 text-base md:text-lg lg:text-xl max-w-lg mx-auto md:mx-0 leading-relaxed">

@@ -9,7 +9,7 @@ export default function Footer() {
       role="contentinfo"
     >
       <p className="mb-4">
-        &copy; {new Date().getFullYear()} Gascom e-Sport. Tous droits réservés.
+        &copy; {new Date().getFullYear()} Gascom Madagascar. Tous droits réservés.
       </p>
       <nav aria-label="Réseaux sociaux" className="mt-4">
         <ul className="flex justify-center items-center gap-6">

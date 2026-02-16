@@ -42,7 +42,7 @@ export default function Carousel() {
           </h2>
           <p className="mt-4 md:mt-6 text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed">
             Plongez dans les univers les plus intenses du gaming moderne : des
-            compétitions e-sport haletantes, des aventures immersives et des
+            compétitions esports haletantes, des aventures immersives et des
             batailles stratégiques. <br className="hidden md:block" />
             Voici une sélection des titres incontournables qui rassemblent des
             millions de joueurs à travers le monde.

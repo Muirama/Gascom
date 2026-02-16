@@ -1,7 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaShoppingCart, FaSearch, FaSortAmountDown, FaEye } from "react-icons/fa";
+import {
+  FaShoppingCart,
+  FaSearch,
+  FaSortAmountDown,
+  FaEye,
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { products, categories, sortOptions } from "../../data/ShopData";
 
@@ -63,7 +68,7 @@ export default function ShopPage() {
           className="text-center mb-8 md:mb-12 relative z-10"
         >
           <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-3 md:mb-4">
-            Boutique <span className="text-[#E50914]">GasCom</span>
+            Boutique <span className="text-[#E50914]">Gascom</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg">
             Découvrez nos offres exclusives de jeux et crédits gaming
@@ -173,7 +178,10 @@ export default function ShopPage() {
                   whileHover={{ scale: 1.03, y: -5 }}
                   className="bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#E50914]/20 hover:border-[#E50914] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all duration-300"
                 >
-                  <div className="relative h-40 md:h-48 overflow-hidden cursor-pointer" onClick={() => navigate(`/shop/${product.id}`)}>
+                  <div
+                    className="relative h-40 md:h-48 overflow-hidden cursor-pointer"
+                    onClick={() => navigate(`/shop/${product.id}`)}
+                  >
                     <img
                       src={product.image}
                       alt={product.name}
@@ -188,7 +196,10 @@ export default function ShopPage() {
                     </span>
                   </div>
                   <div className="p-4 md:p-5">
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-2 line-clamp-1 cursor-pointer hover:text-[#E50914] transition" onClick={() => navigate(`/shop/${product.id}`)}>
+                    <h3
+                      className="text-lg md:text-xl font-bold text-white mb-2 line-clamp-1 cursor-pointer hover:text-[#E50914] transition"
+                      onClick={() => navigate(`/shop/${product.id}`)}
+                    >
                       {product.name}
                     </h3>
                     <p className="text-gray-400 text-xs md:text-sm mb-3 line-clamp-2">

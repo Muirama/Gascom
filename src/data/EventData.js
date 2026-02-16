@@ -20,7 +20,7 @@ export const events = [
       "Jour 2: Quarts et demi-finales",
       "Jour 3: Grande finale",
     ],
-    organizer: "GasCom e-Sport",
+    organizer: "Gascom esport",
   },
   {
     id: 2,
@@ -81,7 +81,7 @@ export const events = [
     status: "Inscriptions ouvertes",
     requirements: ["Solo uniquement", "PS5 fournie", "Frais: 20,000 Ar"],
     schedule: ["Format Bracket", "BO3 en finale"],
-    organizer: "GasCom e-Sport",
+    organizer: "Gascom esport",
   },
   {
     id: 5,
@@ -207,7 +207,7 @@ export const events = [
       "Mini-tournois quotidiens",
       "Soirées à thème",
     ],
-    organizer: "GasCom e-Sport",
+    organizer: "Gascom esport",
   },
 ];
 

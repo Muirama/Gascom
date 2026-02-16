@@ -46,7 +46,7 @@ export default function NavBar() {
           height="45"
         />
         <span className="text-2xl font-extrabold tracking-wide text-white drop-shadow-lg">
-          Gas<span className="text-[#E50914]">Com</span>
+          Gascom
         </span>
       </Link>
 
