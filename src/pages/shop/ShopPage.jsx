@@ -1,17 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FaShoppingCart,
-  FaSearch,
-  FaSortAmountDown,
-  FaEye,
-} from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { FaSearch, FaSortAmountDown } from "react-icons/fa";
 import { products, categories, sortOptions } from "../../data/ShopData";
+import ProductCard from "../../components/ProductCard";
 
 export default function ShopPage() {
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Tous");
   const [sortBy, setSortBy] = useState("default");
@@ -46,13 +40,16 @@ export default function ShopPage() {
     return filtered;
   }, [searchTerm, selectedCategory, sortBy]);
 
-  const formatPrice = (price) =>
-    new Intl.NumberFormat("fr-MG").format(price) + " Ar";
-
   const handleResetFilters = () => {
     setSearchTerm("");
     setSelectedCategory("Tous");
     setSortBy("default");
+  };
+
+  // Exemple : connecter à un store/contexte panier plus tard
+  const handleAddToCart = (product) => {
+    console.log("Ajout au panier :", product);
+    // dispatch(addToCart(product));
   };
 
   return (
@@ -104,7 +101,8 @@ export default function ShopPage() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 autoComplete="off"
-                className="w-full pl-12 pr-4 py-3 bg-[#1A1A1A] text-white rounded-lg border border-[#E50914]/30 focus:border-[#E50914] focus:outline-none focus:ring-2 focus:ring-[#E50914]/50 transition-all"
+                className="w-full pl-12 pr-4 py-3 bg-[#1A1A1A] text-white rounded-lg border border-[#E50914]/30
+                           focus:border-[#E50914] focus:outline-none focus:ring-2 focus:ring-[#E50914]/50 transition-all"
               />
             </div>
 
@@ -117,7 +115,8 @@ export default function ShopPage() {
                 id="sort-select"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full pl-12 pr-10 py-3 bg-[#1A1A1A] text-white rounded-lg border border-[#E50914]/30 focus:border-[#E50914] focus:outline-none focus:ring-2 focus:ring-[#E50914]/50 transition-all appearance-none"
+                className="w-full pl-12 pr-10 py-3 bg-[#1A1A1A] text-white rounded-lg border border-[#E50914]/30
+                           focus:border-[#E50914] focus:outline-none focus:ring-2 focus:ring-[#E50914]/50 transition-all appearance-none"
               >
                 {sortOptions.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -151,7 +150,7 @@ export default function ShopPage() {
                 onClick={() => setSelectedCategory(cat)}
                 type="button"
                 aria-pressed={selectedCategory === cat}
-                className={`px-4 md:px-5 py-2 rounded-lg font-semibold transition-all duration-300 text-sm md:text-base flex items-center gap-2 ${
+                className={`px-4 md:px-5 py-2 rounded-lg font-semibold transition-all duration-300 text-sm md:text-base ${
                   selectedCategory === cat
                     ? "bg-[#E50914] text-white shadow-[0_0_15px_rgba(229,9,20,0.6)] scale-105"
                     : "bg-[#1A1A1A] text-gray-400 hover:bg-[#E50914]/20 hover:text-white border border-white/5"
@@ -174,63 +173,12 @@ export default function ShopPage() {
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
             >
               {filteredAndSortedProducts.map((product, index) => (
-                <motion.div
+                <ProductCard
                   key={product.id}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ delay: index * 0.04, duration: 0.3 }}
-                  whileHover={{ scale: 1.03, y: -5 }}
-                  className="bg-[#1A1A1A] rounded-xl overflow-hidden border border-[#E50914]/20 hover:border-[#E50914] hover:shadow-[0_0_25px_rgba(229,9,20,0.4)] transition-all duration-300 flex flex-col"
-                >
-                  {/* Image */}
-                  <div
-                    className="relative h-40 md:h-48 overflow-hidden cursor-pointer"
-                    onClick={() => navigate(`/shop/${product.id}`)}
-                  >
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover hover:scale-110 transition duration-500"
-                    />
-                    <span className="absolute top-2 right-2 bg-[#E50914] text-white text-xs px-2 py-1 rounded-full font-semibold">
-                      {product.category}
-                    </span>
-                  </div>
-
-                  {/* Infos */}
-                  <div className="p-4 md:p-5 flex flex-col flex-1">
-                    <h3
-                      className="text-base md:text-lg font-bold text-white mb-2 line-clamp-1 cursor-pointer hover:text-[#E50914] transition"
-                      onClick={() => navigate(`/shop/${product.id}`)}
-                    >
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-400 text-xs md:text-sm mb-3 line-clamp-2 flex-1">
-                      {product.description}
-                    </p>
-                    <p className="text-xl md:text-2xl font-extrabold text-[#E50914] mb-3 md:mb-4">
-                      {formatPrice(product.price)}
-                    </p>
-                    <div className="flex gap-2">
-                      <button
-                        type="button"
-                        onClick={() => navigate(`/shop/${product.id}`)}
-                        className="flex-1 bg-transparent border border-[#E50914] text-white font-semibold py-2 rounded-lg hover:bg-[#E50914]/10 transition-all flex items-center justify-center gap-2 text-sm"
-                      >
-                        <FaEye /> Détails
-                      </button>
-                      <button
-                        type="button"
-                        aria-label={`Ajouter ${product.name} au panier`}
-                        className="flex-1 bg-[#E50914] hover:bg-[#FF1E56] text-white font-semibold py-2 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-[0_0_15px_rgba(229,9,20,0.6)] active:scale-95 text-sm"
-                      >
-                        <FaShoppingCart /> Panier
-                      </button>
-                    </div>
-                  </div>
-                </motion.div>
+                  product={product}
+                  index={index}
+                  onAddToCart={handleAddToCart}
+                />
               ))}
             </motion.div>
           ) : (
@@ -251,7 +199,8 @@ export default function ShopPage() {
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="px-8 py-3 bg-[#E50914] text-white rounded-lg hover:bg-[#FF1E56] transition-all duration-300 hover:shadow-[0_0_20px_rgba(229,9,20,0.6)] active:scale-95 font-semibold"
+                className="px-8 py-3 bg-[#E50914] text-white rounded-lg hover:bg-[#FF1E56] transition-all duration-300
+                           hover:shadow-[0_0_20px_rgba(229,9,20,0.6)] active:scale-95 font-semibold"
               >
                 Réinitialiser les filtres
               </button>
